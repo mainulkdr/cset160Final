@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounts</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Accounts Page</h2> <br><br>
+    <form action="/accounts">
+        <label for="type">Filter By:</label>
+
+        <select name="type">
+            <option value="teacher">All</option>
+            <option value="teacher">Teacher</option>
+            <option value="student">Student</option>
+        </select> <br><br>
+
+        <button type="submit" class="Submit">Submit</button>
+      </form>
+      {% for account in accounts%}
+        <ul>
+            <li>Account ID: {{ account[0]}}</li>
+            <ul>
+                <li>First Name: {{ account[1]}}</li>
+                <li>Last Name: {{ account[2]}}</li>
+                <li>Account Type: {{ account[5]}}</li>
+            </ul>
+        </ul>
+      {% endfor%}
+</body>
+</html>
