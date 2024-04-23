@@ -38,5 +38,10 @@ def get_accounts():
     accounts = conn.execute(text('select * from user')).all()
     return render_template("accounts.html", accounts=accounts)
 
+@app.route('/createTest', methods=['GET', 'POST'])
+def createTest():
+    accounts = conn.execute(text('select * from user where type = "Teacher"')).all()
+    return render_template("create_test.html", accounts=accounts)
+
 if __name__ == '__main__':
     app.run(debug=True)

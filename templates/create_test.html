@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Test</title>
+</head>
+<body>
+    {% if error %}
+        <h2>{{ error }}</h2>
+    {% endif %}
+
+    {% if success %}
+        <h2>{{ success }}</h2>
+    {% endif %}
+
+    <h2 style="text-align: center;">Create Test Page</h2> <br><br>
+    <form action="/createTest" method="post">
+        <label for="q1">Question 1</label>
+        <input type="text" placeholder="Enter First Question" name="q1" id="q1" required> <br>
+
+        <label for="q2">Question 2</label>
+        <input type="text" placeholder="Enter Second Question" name="q2" id="q2" required> <br>
+
+        <label for="q3">Question 3</label>
+        <input type="text" placeholder="Enter Third Question" name="q3" id="q3" required> <br>
+
+        <label for="cars">Choose a teacher:</label>
+
+        
+        <select name="id" id="id">
+            {% for account in accounts%}
+                <option value="id">{{ account[0]}}</option>
+            {%endfor%}
+        </select> <br><br>
+        
+
+        <button type="submit" class="registerbtn">Create</button>
+      </form>
+</body>
+</html>
