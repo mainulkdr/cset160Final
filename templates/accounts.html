@@ -7,16 +7,16 @@
 </head>
 <body>
     <h2 style="text-align: center;">Accounts Page</h2> <br><br>
-    <form action="/accounts">
+    <form action="/accounts", method="post">
         <label for="type">Filter By:</label>
 
         <select name="type">
-            <option value="teacher">All</option>
-            <option value="teacher">Teacher</option>
-            <option value="student">Student</option>
+            <option value="All">All</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Student">Student</option>
         </select> <br><br>
 
-        <button type="submit" class="Submit">Submit</button>
+        <input type="submit" value="Submit">
       </form>
       {% for account in accounts%}
         <ul>

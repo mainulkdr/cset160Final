@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 app = Flask(__name__)
 
-conn_str = "mysql://root:CSET155@localhost:3307/cset160Final"
+conn_str = "mysql://root:5676@localhost/cset160Final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
@@ -24,8 +24,17 @@ def register():
 
 @app.route('/accounts', methods=['GET', 'POST'])
 def get_accounts():
-    user_choice = request.args.get("type")
-    print(user_choice)
+    if request.method == 'POST':
+        user_choice = request.form["type"]
+        if user_choice == "All":
+            accounts = conn.execute(text('select * from user')).all()
+            return render_template("accounts.html", accounts=accounts)
+        elif user_choice == "Teacher":
+            accounts = conn.execute(text('select * from user where type = "Teacher"')).all()
+            return render_template("accounts.html", accounts=accounts)
+        elif user_choice == "Student":
+            accounts = conn.execute(text('select * from user where type = "Student"')).all()
+            return render_template("accounts.html", accounts=accounts)
     accounts = conn.execute(text('select * from user')).all()
     return render_template("accounts.html", accounts=accounts)
 
