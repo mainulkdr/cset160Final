@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 app = Flask(__name__)
 
-conn_str = "mysql://root:CSET155@localhost:3307/cset160Final"
+conn_str = "mysql://root:5676@localhost/cset160Final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
@@ -59,16 +59,16 @@ def viewTest():
     tests = conn.execute(text('select * from test')).all()
     return render_template("viewTest.html", tests=tests)
 
-@app.route('/editTest/<id>')
-def editTest(id):
-    print(id)
-    return "Hello edit"
+@app.route('/editTest/<testId>')
+def editTest(testId):
+    editTest = conn.execute(text(f'select * from test where testId = "{testId}"'))
+    return render_template("editTest.html", editTest=editTest)
 
 @app.route('/deleteTest/<testId>')
 def deleteTest(testId):
-    print(testId)
-    conn.execute(text(f'delete from test where testId = {testId}'))
-    return "Hello delete"
+    conn.execute(text(f'delete from test where testId = "{testId}"'))
+    conn.commit()
+    return redirect("/viewTest")
 
 if __name__ == '__main__':
     app.run(debug=True)
