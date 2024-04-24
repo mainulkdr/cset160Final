@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 app = Flask(__name__)
 
-conn_str = "mysql://root:5676@localhost/cset160Final"
+conn_str = "mysql://root:CSET155@localhost:3307/cset160Final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
@@ -40,12 +40,19 @@ def get_accounts():
 
 @app.route('/createTest', methods=['GET', 'POST'])
 def createTest():
-    if request.method == "POST":
-        choice = request.form["id"]
-        print(choice)
-
+    success = ""
+    error = ""
+    if request.method == 'POST':
+        try:
+            conn.execute(text('insert into test values (:testId, :q1, :q2, :q3, :userName)'), request.form)
+            conn.commit()
+            success="Data inserted successfully!"
+            error=None
+        except:
+            success=None
+            error="Failed"
     accounts = conn.execute(text('select * from user where type = "Teacher"')).all()
-    return render_template("create_test.html", accounts=accounts)
+    return render_template("create_test.html", accounts=accounts, success=success, error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)
