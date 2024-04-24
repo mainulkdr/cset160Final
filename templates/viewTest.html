@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Test Page</h2> <br><br>
+      {% for test in tests%}
+        <ul>
+            <li>Test ID: {{ test[0]}}</li>
+            <ul>
+                <li>Question 1: {{ test[1]}}</li>
+                <li>Question 2: {{ test[2]}}</li>
+                <li>Question 3: {{ test[3]}}</li>
+            </ul><a href="/editTest/{{ test[0]}}"><button>Edit</button></a><a href="/deleteTest/{{ test[0]}}"><button>Delete</button></a>
+        </ul>
+      {% endfor%}
+</body>
+</html>

@@ -54,5 +54,21 @@ def createTest():
     accounts = conn.execute(text('select * from user where type = "Teacher"')).all()
     return render_template("create_test.html", accounts=accounts, success=success, error=error)
 
+@app.route('/viewTest', methods=['GET', 'POST'])
+def viewTest():
+    tests = conn.execute(text('select * from test')).all()
+    return render_template("viewTest.html", tests=tests)
+
+@app.route('/editTest/<id>')
+def editTest(id):
+    print(id)
+    return "Hello edit"
+
+@app.route('/deleteTest/<testId>')
+def deleteTest(testId):
+    print(testId)
+    conn.execute(text(f'delete from test where testId = {testId}'))
+    return "Hello delete"
+
 if __name__ == '__main__':
     app.run(debug=True)
