@@ -16,6 +16,9 @@
 
     <h2 style="text-align: center;">Create Test Page</h2> <br><br>
     <form action="/createTest" method="post">
+        <label for="q1">Test Id</label>
+        <input type="text" placeholder="Enter Test Id" name="testId" id="testId" required> <br>
+
         <label for="q1">Question 1</label>
         <input type="text" placeholder="Enter First Question" name="q1" id="q1" required> <br>
 
@@ -30,7 +33,7 @@
         
         <select name="id" id="id">
             {% for account in accounts%}
-                <option value="id">{{ account[0]}}</option>
+                <option value="{{ account[0]}}">{{ account[0]}}</option>
             {%endfor%}
         </select> <br><br>
         

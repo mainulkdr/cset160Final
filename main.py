@@ -15,7 +15,7 @@ def greeting():
 def register():
     if request.method == 'POST':
         try:
-            conn.execute(text('insert into user (firstName, lastName, email, password, type) values (:firstName, :lastName, :email, :password, :type)'), request.form)
+            conn.execute(text('insert into user values (:userName, :firstName, :lastName, :email, :password, :type)'), request.form)
             conn.commit()
             return render_template('register.html', error=None, success="Data inserted successfully!")
         except:
@@ -40,6 +40,10 @@ def get_accounts():
 
 @app.route('/createTest', methods=['GET', 'POST'])
 def createTest():
+    if request.method == "POST":
+        choice = request.form["id"]
+        print(choice)
+
     accounts = conn.execute(text('select * from user where type = "Teacher"')).all()
     return render_template("create_test.html", accounts=accounts)
 
