@@ -91,14 +91,14 @@ def takeTest(testId):
     if request.method == 'POST':
         try:
             conn.execute(
-                text(f'update test set q1 = :q1, q2 = :q2, q3 = :q3, userName = :userName where testId = "{testId}"'), 
+                text(f'insert into answer values (:q1, :q2, :q3, :userName, "{testId}")'), 
                 request.form)
             conn.commit()
             success="Data inserted successfully!"
             error=None
         except:
             success=None
-            error="Failed"
+            error="The student has already completed the test."
     takeTest = conn.execute(text(f'select * from test where testId = "{testId}"')).one()
     accounts = conn.execute(text('select * from user where type = "Student"')).all()
     return render_template("takeTest.html", takeTest=takeTest, accounts=accounts, success=success, error=error)
