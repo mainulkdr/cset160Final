@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Test</title>
+</head>
+<body>
+    {% if error %}
+        <h2>{{ error }}</h2>
+    {% endif %}
+
+    {% if success %}
+        <h2>{{ success }}</h2>
+    {% endif %}
+
+    <h2 style="text-align: center;">Take Test Page</h2> <br><br>
+    <form action="/takeTest/{{takeTest[0]}}" method="post">
+        <label for="testId">Test Id: {{takeTest[0]}}</label><br>
+
+        <label for="q1">Question 1: {{takeTest[1]}}</label><br>
+        <label for="q1">Answer:</label>
+        <input type="text" placeholder="Enter Answer" name="q1"> <br>
+
+        <label for="q2">Question 2: {{takeTest[2]}}</label><br>
+        <label for="q2">Answer:</label>
+        <input type="text" placeholder="Enter Answer" name="q2"> <br>
+
+        <label for="q3">Question 3: {{takeTest[3]}}</label><br>
+        <label for="q3">Answer:</label>
+        <input type="text" placeholder="Enter Answer" name="q3"><br>
+
+        <label for="cars">Choose a teacher:</label>
+
+        
+        <select name="userName" id="id">
+            {% for account in accounts%}
+                <option value="{{ account[0]}}">{{ account[0]}}</option>
+            {%endfor%}
+        </select> <br><br>
+        
+
+        <button type="submit" class="registerbtn">Submit</button>
+      </form>
+</body>
+</html>

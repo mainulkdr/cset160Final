@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 app = Flask(__name__)
 
-conn_str = "mysql://root:5676@localhost/cset160Final"
+conn_str = "mysql://root:CSET155@localhost:3307/cset160Final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
@@ -83,6 +83,25 @@ def deleteTest(testId):
     conn.execute(text(f'delete from test where testId = "{testId}"'))
     conn.commit()
     return redirect("/viewTest")
+
+@app.route('/takeTest/<testId>', methods=['GET', 'POST'])
+def takeTest(testId):
+    success = ""
+    error = ""
+    if request.method == 'POST':
+        try:
+            conn.execute(
+                text(f'update test set q1 = :q1, q2 = :q2, q3 = :q3, userName = :userName where testId = "{testId}"'), 
+                request.form)
+            conn.commit()
+            success="Data inserted successfully!"
+            error=None
+        except:
+            success=None
+            error="Failed"
+    takeTest = conn.execute(text(f'select * from test where testId = "{testId}"')).one()
+    accounts = conn.execute(text('select * from user where type = "Student"')).all()
+    return render_template("takeTest.html", takeTest=takeTest, accounts=accounts, success=success, error=error)
 
 if __name__ == '__main__':
     app.run(debug=True)

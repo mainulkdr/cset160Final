@@ -14,7 +14,10 @@
                 <li>Question 1: {{ test[1]}}</li>
                 <li>Question 2: {{ test[2]}}</li>
                 <li>Question 3: {{ test[3]}}</li>
-            </ul><a href="/editTest/{{ test[0]}}"><button>Edit</button></a><a href="/deleteTest/{{ test[0]}}"><button>Delete</button></a>
+            </ul>
+            <a href="/editTest/{{ test[0]}}"><button>Edit</button></a>
+            <a href="/deleteTest/{{ test[0]}}"><button>Delete</button></a>
+            <a href="/takeTest/{{ test[0]}}"><button>Take Test</button></a>
         </ul>
       {% endfor%}
 </body>
