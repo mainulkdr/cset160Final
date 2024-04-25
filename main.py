@@ -59,10 +59,24 @@ def viewTest():
     tests = conn.execute(text('select * from test')).all()
     return render_template("viewTest.html", tests=tests)
 
-@app.route('/editTest/<testId>')
+@app.route('/editTest/<testId>', methods=['GET', 'POST'])
 def editTest(testId):
-    editTest = conn.execute(text(f'select * from test where testId = "{testId}"'))
-    return render_template("editTest.html", editTest=editTest)
+    success = ""
+    error = ""
+    if request.method == 'POST':
+        try:
+            conn.execute(
+                text(f'update test set q1 = :q1, q2 = :q2, q3 = :q3, userName = :userName where testId = "{testId}"'), 
+                request.form)
+            conn.commit()
+            success="Data inserted successfully!"
+            error=None
+        except:
+            success=None
+            error="Failed"
+    editTest = conn.execute(text(f'select * from test where testId = "{testId}"')).one()
+    accounts = conn.execute(text('select * from user where type = "Teacher"')).all()
+    return render_template("editTest.html", editTest=editTest, accounts=accounts, success=success, error=error)
 
 @app.route('/deleteTest/<testId>')
 def deleteTest(testId):

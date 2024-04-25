@@ -6,27 +6,29 @@
     <title>Edit Test</title>
 </head>
 <body>
-    <!-- {% if error %}
+    {% if error %}
         <h2>{{ error }}</h2>
     {% endif %}
 
     {% if success %}
         <h2>{{ success }}</h2>
-    {% endif %} -->
+    {% endif %}
 
     <h2 style="text-align: center;">Edit Test Page</h2> <br><br>
-    <form action="/createTest" method="post">
-        <label for="testId">{{editTest[0]}}</label>
-        <input type="text" placeholder="Enter Test Id" name="testId" id="testId" required> <br>
+    <form action="/editTest/{{editTest[0]}}" method="post">
+        <label for="testId">Test Id: {{editTest[0]}}</label><br>
 
-        <label for="q1">{{editTest[1]}}</label>
-        <input type="text" placeholder="Enter First Question" name="q1" id="q1" required> <br>
+        <label for="q1">Previous Question: {{editTest[1]}}</label><br>
+        <label for="q1">Updated Question:</label>
+        <input type="text" placeholder="Enter First Question" name="q1" value="{{editTest[1]}}" required> <br>
 
-        <label for="q2">{{editTest[2]}}</label>
-        <input type="text" placeholder="Enter Second Question" name="q2" id="q2" required> <br>
+        <label for="q2">Previous Question: {{editTest[2]}}</label><br>
+        <label for="q2">Updated Question:</label>
+        <input type="text" placeholder="Enter Second Question" name="q2" value="{{editTest[2]}}" required> <br>
 
-        <label for="q3">{{editTest[4]}}</label>
-        <input type="text" placeholder="Enter Third Question" name="q3" id="q3" required> <br>
+        <label for="q3">Previous Question: {{editTest[3]}}</label><br>
+        <label for="q2">Updated Question:</label>
+        <input type="text" placeholder="Enter Third Question" name="q3" value="{{editTest[3]}}" required> <br>
 
         <label for="cars">Choose a teacher:</label>
 
@@ -38,7 +40,7 @@
         </select> <br><br>
         
 
-        <button type="submit" class="registerbtn">Create</button>
+        <button type="submit" class="registerbtn">Update</button>
       </form>
 </body>
 </html>
