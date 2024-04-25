@@ -1,0 +1,47 @@
+show databases;
+create database cset160Final;
+use cset160Final;
+show tables;
+CREATE TABLE user (
+userName VARCHAR(40) PRIMARY KEY,
+    firstName VARCHAR(40),
+    lastName VARCHAR(40),
+    email VARCHAR(40),
+    password VARCHAR(40),
+    type VARCHAR(20)
+);
+select * from user;
+
+CREATE TABLE test (
+testId VARCHAR(40) PRIMARY KEY,
+    q1 VARCHAR(100),
+    q2 VARCHAR(100),
+    q3 VARCHAR(100),
+    userName VARCHAR(40),
+    foreign key (userName) references user(userName)
+);
+
+CREATE TABLE answer (
+    q1 VARCHAR(100),
+    q2 VARCHAR(100),
+    q3 VARCHAR(100),
+    userName VARCHAR(40),
+    testId VARCHAR(40),
+    primary key(userName,testId),
+    foreign key (userName) references user(userName),
+    FOREIGN KEY (testId) REFERENCES test(testId)
+);
+
+select * from answer;
+
+
+
+ALTER TABLE answer ADD CONSTRAINT FK_testId FOREIGN KEY (testId) REFERENCES test(testId);
+drop table answer;
+alter table answer drop primary key;
+ALTER table answer add primary key(userName,testId);
+delete from answer where userName = "ethan";
+ALTER TABLE answer ADD testId VARCHAR(40);
+
+select * from test;
+delete from test where testId = "test3";
