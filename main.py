@@ -91,7 +91,7 @@ def takeTest(testId):
     if request.method == 'POST':
         try:
             conn.execute(
-                text(f'insert into answer values (:q1, :q2, :q3, :userName, "{testId}")'), 
+                text(f'insert into answer (q1, q2, q3, userName, testId) values (:q1, :q2, :q3, :userName, "{testId}")'), 
                 request.form)
             conn.commit()
             success="Data inserted successfully!"
@@ -103,15 +103,15 @@ def takeTest(testId):
     accounts = conn.execute(text('select * from user where type = "Student"')).all()
     return render_template("takeTest.html", takeTest=takeTest, accounts=accounts, success=success, error=error)
 
-@app.route('/viewAnswerId')
-def viewAnswerId():
-    responseIds = conn.execute(text(f'select distinct testId from answer')).all()
-    return render_template("viewResponse.html", responseIds=responseIds)
-
-@app.route('/getResponse/<id>')
-def getResponse(id):
-    responses =  conn.execute(text(f'select * from answer where testId ="{id}"')).all()
-    return render_template("allResponse.html", responses=responses)
+@app.route('/viewAnswer', methods=['GET', 'POST'])
+def viewAnswer():
+    if request.method == 'POST':
+        user_choice = request.form["testId"]
+        answers =  conn.execute(text(f'select * from answer where testId ="{user_choice}"')).all() 
+        testIds = conn.execute(text(f'select distinct testId from answer')).all()
+        return render_template("viewResponse.html", answers=answers, testIds=testIds)
+    testIds = conn.execute(text(f'select distinct testId from answer')).all()
+    return render_template("viewResponse.html", testIds=testIds)
 
 if __name__ == '__main__':
     app.run(debug=True)
