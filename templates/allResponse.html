@@ -1,0 +1,11 @@
+<h3>All Resonse</h3>
+{% for response in responses%}
+    <ul>
+        <li>Taken By: {{ response[3]}}</li>
+        <ul>
+            <li>Answer for question 1: {{ response[0]}}</li>
+            <li>Answer for question 2: {{ response[1]}}</li>
+            <li>Answer for question 3: {{ response[2]}}</li>
+        </ul>
+    </ul>
+{% endfor%}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Response Page</h2> <br><br>
+    <label for="cars">Choose a test see all response:</label>
+    {% for responseId in responseIds %}
+        <a href="/getResponse/{{responseId[0]}}"><button>{{ responseId[0]}}</button></a>
+    {%endfor%}
+    <br><br>
+    <h3>All Resonse</h3>
+    {% for response in responses%}
+        <ul>
+            <li>Taken By: {{ response[3]}}</li>
+            <ul>
+                <li>Answer for question 1: {{ response[0]}}</li>
+                <li>Answer for question 2: {{ response[1]}}</li>
+                <li>Answer for question 3: {{ response[2]}}</li>
+            </ul>
+        </ul>
+    {% endfor%}
+
+    
+
+</body>
+</html>
