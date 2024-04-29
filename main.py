@@ -139,7 +139,15 @@ def gradeTest():
             return render_template("gradeTest.html", testIds=testIds, students=students, teachers=teachers, error=error)
     return render_template("gradeTest.html", testIds=testIds, students=students, teachers=teachers)
 
-
+@app.route('/testDetails', methods=['GET', 'POST'])
+def testDetails():
+    testDetails =conn.execute(text('select answer.testId asTestName, test.userName as CreatedBy, count(answer.testId) from test join answer on (test.testId = answer.testId) group by answer.testId;')).all()
+    if request.method == 'POST':
+        testId = request.form["testId"]
+        moreTestDetails = conn.execute(text(f'select * from answer where testId = "{testId}"')).all()
+        return render_template("testDetails.html", testDetails=testDetails, moreTestDetails=moreTestDetails)
+        return "Hello"
+    return render_template("testDetails.html", testDetails=testDetails)
 
 if __name__ == '__main__':
     app.run(debug=True)

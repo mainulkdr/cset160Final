@@ -43,3 +43,5 @@ alter table answer add grade int;
 alter table answer add gradedBy VARCHAR(40);
 select * from answer where testId = "test1";
 select * from answer;
+select answer.testId asTestName, test.userName as CreatedBy, count(answer.testId) from test join answer 
+on (test.testId = answer.testId) group by answer.testId;
