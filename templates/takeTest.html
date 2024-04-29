@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Take Test</title>
-</head>
-<body>
+
+{% extends "base.html"%}
+{% block body%}
+<div>
+    <h2 style="text-align: center;">Take Test Page</h2> <br>
     {% if error %}
         <h2>{{ error }}</h2>
     {% endif %}
@@ -13,8 +10,7 @@
     {% if success %}
         <h2>{{ success }}</h2>
     {% endif %}
-
-    <h2 style="text-align: center;">Take Test Page</h2> <br><br>
+    <br>
     <form action="/takeTest/{{takeTest[0]}}" method="post">
         <label for="testId">Test Id: {{takeTest[0]}}</label><br>
 
@@ -42,5 +38,5 @@
 
         <button type="submit" class="registerbtn">Submit</button>
       </form>
-</body>
-</html>
+</div>
+{% endblock%}

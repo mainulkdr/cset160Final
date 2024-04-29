@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test details</title>
-</head>
-<body>
-      <h3>Test Details:</h3>
-      {% for testDetail in testDetails%}
-      <ul>
-          <li>Taken By: {{ testDetail[0]}}</li>
-          <ul>
-              <li>Created by: {{ testDetail[1]}}</li>
-              <li>Number of students took the test: {{ testDetail[2]}}</li>
-          </ul>
-      </ul>
-    {% endfor%} <br><hr>
 
-    <form action="/testDetails", method="post">
-        <label for="testId">Choose a test see more details:</label>
-        <select name="testId">
-            {% for testDetail in testDetails%}
-                <option value="{{testDetail[0]}}">{{testDetail[0]}}</option>
-            {% endfor%}
-        </select> <br>
-        <input type="submit" value="Submit">
-      </form> <br><br>
+{% extends "base.html"%}
+{% block body%}
+<div>
+    <h3>Test Details:</h3>
+    {% for testDetail in testDetails%}
+    <ul>
+        <li>Taken By: {{ testDetail[0]}}</li>
+        <ul>
+            <li>Created by: {{ testDetail[1]}}</li>
+            <li>Number of students took the test: {{ testDetail[2]}}</li>
+        </ul>
+    </ul>
+  {% endfor%} <br><hr>
 
-      <h3>More Details:</h3>
-      {% for moreTestDetail in moreTestDetails%}
-      <ul>
-          <li>Student name: {{ moreTestDetail[3]}}</li>
-          <ul>
-              <li>Achieved marks: {{ moreTestDetail[5]}}</li>
-              <li>Graded by: {{ moreTestDetail[6]}}</li>
-          </ul>
-      </ul>
-    {% endfor%}
-</body>
-</html>
+  <form action="/testDetails", method="post">
+      <label for="testId">Choose a test see more details:</label>
+      <select name="testId">
+          {% for testDetail in testDetails%}
+              <option value="{{testDetail[0]}}">{{testDetail[0]}}</option>
+          {% endfor%}
+      </select> <br>
+      <input type="submit" value="Submit">
+    </form>
+
+    <h3>More Details:</h3>
+    {% for moreTestDetail in moreTestDetails%}
+    <ul>
+        <li>Student name: {{ moreTestDetail[3]}}</li>
+        <ul>
+            <li>Achieved marks: {{ moreTestDetail[5]}}</li>
+            <li>Graded by: {{ moreTestDetail[6]}}</li>
+        </ul>
+    </ul>
+  {% endfor%}
+</div>
+{% endblock%}

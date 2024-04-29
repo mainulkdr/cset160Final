@@ -1,46 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Test</title>
-</head>
-<body>
-    {% if error %}
-        <h2>{{ error }}</h2>
-    {% endif %}
+{% extends "base.html"%}
+{% block body%}
+<div>
+<h2 style="text-align: center;">Edit Test Page</h2> <br>
+{% if error %}
+    <h2>{{ error }}</h2>
+{% endif %}
 
-    {% if success %}
-        <h2>{{ success }}</h2>
-    {% endif %}
+{% if success %}
+    <h2>{{ success }}</h2>
+{% endif %}
+<br>
+<form action="/editTest/{{editTest[0]}}" method="post">
+    <label for="testId">Test Id: {{editTest[0]}}</label><br>
 
-    <h2 style="text-align: center;">Edit Test Page</h2> <br><br>
-    <form action="/editTest/{{editTest[0]}}" method="post">
-        <label for="testId">Test Id: {{editTest[0]}}</label><br>
+    <label for="q1">Previous Question: {{editTest[1]}}</label><br>
+    <label for="q1">Updated Question:</label>
+    <input type="text" placeholder="Enter First Question" name="q1" value="{{editTest[1]}}" required> <br>
 
-        <label for="q1">Previous Question: {{editTest[1]}}</label><br>
-        <label for="q1">Updated Question:</label>
-        <input type="text" placeholder="Enter First Question" name="q1" value="{{editTest[1]}}" required> <br>
+    <label for="q2">Previous Question: {{editTest[2]}}</label><br>
+    <label for="q2">Updated Question:</label>
+    <input type="text" placeholder="Enter Second Question" name="q2" value="{{editTest[2]}}" required> <br>
 
-        <label for="q2">Previous Question: {{editTest[2]}}</label><br>
-        <label for="q2">Updated Question:</label>
-        <input type="text" placeholder="Enter Second Question" name="q2" value="{{editTest[2]}}" required> <br>
+    <label for="q3">Previous Question: {{editTest[3]}}</label><br>
+    <label for="q2">Updated Question:</label>
+    <input type="text" placeholder="Enter Third Question" name="q3" value="{{editTest[3]}}" required> <br>
 
-        <label for="q3">Previous Question: {{editTest[3]}}</label><br>
-        <label for="q2">Updated Question:</label>
-        <input type="text" placeholder="Enter Third Question" name="q3" value="{{editTest[3]}}" required> <br>
+    <label for="cars">Choose a teacher:</label>
 
-        <label for="cars">Choose a teacher:</label>
+    
+    <select name="userName" id="id">
+        {% for account in accounts%}
+            <option value="{{ account[0]}}">{{ account[0]}}</option>
+        {%endfor%}
+    </select> <br><br>
+    
 
-        
-        <select name="userName" id="id">
-            {% for account in accounts%}
-                <option value="{{ account[0]}}">{{ account[0]}}</option>
-            {%endfor%}
-        </select> <br><br>
-        
-
-        <button type="submit" class="registerbtn">Update</button>
-      </form>
-</body>
-</html>
+    <button type="submit" class="registerbtn">Update</button>
+  </form>
+</div>
+{% endblock%}

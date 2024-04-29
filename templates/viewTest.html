@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-</head>
-<body>
+{% extends "base.html"%}
+{% block body%}
+<div>
     <h2 style="text-align: center;">Test Page</h2> <br><br>
       {% for test in tests%}
         <ul>
@@ -16,9 +11,9 @@
                 <li>Question 3: {{ test[3]}}</li>
             </ul>
             <a href="/editTest/{{ test[0]}}"><button>Edit</button></a>
-            <a href="/deleteTest/{{ test[0]}}"><button>Delete</button></a>
+            <!-- <a href="/deleteTest/{{ test[0]}}"><button>Delete</button></a> -->
             <a href="/takeTest/{{ test[0]}}"><button>Take Test</button></a>
         </ul>
       {% endfor%}
-</body>
-</html>
+</div>
+{% endblock%}
