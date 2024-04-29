@@ -80,6 +80,8 @@ def editTest(testId):
 
 @app.route('/deleteTest/<testId>')
 def deleteTest(testId):
+    conn.execute(text(f'delete from answer where testId = "{testId}"'))
+    conn.commit()
     conn.execute(text(f'delete from test where testId = "{testId}"'))
     conn.commit()
     return redirect("/viewTest")
@@ -105,12 +107,12 @@ def takeTest(testId):
 
 @app.route('/viewAnswer', methods=['GET', 'POST'])
 def viewAnswer():
-    if request.method == 'POST':
-        user_choice = request.form["testId"]
-        questions = conn.execute(text(f'select * from test where testId = "{user_choice}"')).one()
-        answers =  conn.execute(text(f'select * from answer where testId ="{user_choice}"')).all()
-        testIds = conn.execute(text(f'select distinct testId from answer')).all()
-        return render_template("viewResponse.html", answers=answers, testIds=testIds, questions=questions)
+    # if request.method == 'POST':
+    #     user_choice = request.form["testId"]
+    #     questions = conn.execute(text(f'select * from test where testId = "{user_choice}"')).one()
+    #     answers =  conn.execute(text(f'select * from answer where testId ="{user_choice}"')).all()
+    #     testIds = conn.execute(text(f'select distinct testId from answer')).all()
+    #     return render_template("viewResponse.html", answers=answers, testIds=testIds, questions=questions)
     testIds = conn.execute(text(f'select distinct testId from answer')).all()
     return render_template("viewResponse.html", testIds=testIds)
 
