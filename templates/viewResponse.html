@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accounts</title>
+    <title>Answers</title>
 </head>
 <body>
-    <h2 style="text-align: center;">Accounts Page</h2> <br><br>
+    <h2 style="text-align: center;">Answers Page</h2> <br><br>
     <form action="/viewAnswer", method="post">
         <label for="testId">Choose a test see all responses:</label>
         <select name="testId">
@@ -16,15 +16,26 @@
         </select> <br><br>
         <input type="submit" value="Submit">
       </form>
-      {% for answer in answers%}
+      <h3>Question:</h3>
+      <ul>
+        <li>Test: {{questions[0]}}</li>
         <ul>
-            <li>Taken By: {{ answer[3]}}</li>
-            <ul>
-                <li>Answer for question 1: {{ answer[0]}}</li>
-                <li>Answer for question 2: {{ answer[1]}}</li>
-                <li>Answer for question 3: {{ answer[2]}}</li>
-            </ul>
+            <li>Question 1: {{questions[1]}}</li>
+            <li>Question 2: {{questions[2]}}</li>
+            <li>Question 3: {{questions[3]}}</li>
         </ul>
-      {% endfor%}
+      </ul>
+
+      <h3>Answers:</h3>
+      {% for answer in answers%}
+      <ul>
+          <li>Taken By: {{ answer[3]}}</li>
+          <ul>
+              <li>Answer for question 1: {{ answer[0]}}</li>
+              <li>Answer for question 2: {{ answer[1]}}</li>
+              <li>Answer for question 3: {{ answer[2]}}</li>
+          </ul>
+      </ul>
+    {% endfor%}
 </body>
 </html>

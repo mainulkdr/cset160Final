@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade</title>
+</head>
+<body>
+    <h2 style="text-align: center;">Grading Page</h2> <br><br>
+    {% if error %}
+        <h2>{{ error }}</h2>
+    {% endif %}
+
+    {% if success %}
+        <h2>{{ success }}</h2>
+    {% endif %}
+    <br>
+    <form action="/gradeTest", method="post">
+        <label for="testId">Choose a test to submit grade or change grade:</label>
+        <select name="testId">
+            {% for testId in testIds%}
+                <option value="{{testId[0]}}">{{testId[0]}}</option>
+            {% endfor%}
+        </select> <br>
+        <label for="student">Taken by:</label>
+        <select name="student">
+            {% for student in students%}
+                <option value="{{student[0]}}">{{student[0]}}</option>
+            {% endfor%}
+        </select> <br>
+        <label for="teacher">Graded by:</label>
+        <select name="teacher">
+            {% for teacher in teachers%}
+                <option value="{{teacher[0]}}">{{teacher[0]}}</option>
+            {% endfor%}
+        </select> <br>
+        <label for="grade">Submit or update total marks:</label>
+        <input type="number" name="grade" id="grade" required> <br><br>
+        <input type="submit" value="Submit">
+      </form>
+      {% for answer in answers%}
+        <ul>
+            <li>Test:{{ answer[4]}}</li>
+            <li>Taken By: {{ answer[3]}}</li>
+            <ul>
+                <li>Answer for question 1: {{ answer[0]}}</li>
+                <li>Answer for question 2: {{ answer[1]}}</li>
+                <li>Answer for question 3: {{ answer[2]}}</li>
+                <li>Current grade: {{ answer[5]}}</li>
+            </ul>
+        </ul>
+      {% endfor%}
+</body>
+</html>

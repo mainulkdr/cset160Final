@@ -107,11 +107,39 @@ def takeTest(testId):
 def viewAnswer():
     if request.method == 'POST':
         user_choice = request.form["testId"]
-        answers =  conn.execute(text(f'select * from answer where testId ="{user_choice}"')).all() 
+        questions = conn.execute(text(f'select * from test where testId = "{user_choice}"')).one()
+        answers =  conn.execute(text(f'select * from answer where testId ="{user_choice}"')).all()
         testIds = conn.execute(text(f'select distinct testId from answer')).all()
-        return render_template("viewResponse.html", answers=answers, testIds=testIds)
+        return render_template("viewResponse.html", answers=answers, testIds=testIds, questions=questions)
     testIds = conn.execute(text(f'select distinct testId from answer')).all()
     return render_template("viewResponse.html", testIds=testIds)
+
+@app.route('/gradeTest', methods=['GET', 'POST'])
+def gradeTest():
+    testIds = conn.execute(text(f'select distinct testId from answer')).all()
+    students = conn.execute(text(f'select distinct userName from answer')).all()
+    teachers = conn.execute(text('select * from user where type = "Teacher"')).all()
+    success = ""
+    error = ""
+    if request.method == 'POST':
+        testId = request.form["testId"]
+        student = request.form["student"]
+        teacher = request.form["teacher"]
+        grade = request.form["grade"]
+        conn.execute(
+            text(f'update answer set grade = :grade, gradedBy = :teacher where testId ="{testId}" and userName = "{student}"'), 
+            request.form)
+        conn.commit()
+        answers =  conn.execute(text(f'select * from answer where testId ="{testId}" and userName = "{student}"')).all()
+        if answers:
+            success = "Successful"
+            return render_template("gradeTest.html", testIds=testIds, students=students, answers=answers, teachers=teachers)
+        else:
+            error = "The student have not taken the test yet!"
+            return render_template("gradeTest.html", testIds=testIds, students=students, teachers=teachers, error=error)
+    return render_template("gradeTest.html", testIds=testIds, students=students, teachers=teachers)
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
