@@ -3,7 +3,7 @@ from sqlalchemy import Column, Integer, String, Numeric, create_engine, text
 
 app = Flask(__name__)
 
-conn_str = "mysql://root:5676@localhost/cset160Final"
+conn_str = "mysql://root:CSET155@localhost:3307/cset160Final"
 engine = create_engine(conn_str, echo=True)
 conn = engine.connect()
 
@@ -107,13 +107,13 @@ def takeTest(testId):
 
 @app.route('/viewAnswer', methods=['GET', 'POST'])
 def viewAnswer():
-    # if request.method == 'POST':
-    #     user_choice = request.form["testId"]
-    #     questions = conn.execute(text(f'select * from test where testId = "{user_choice}"')).one()
-    #     answers =  conn.execute(text(f'select * from answer where testId ="{user_choice}"')).all()
-    #     testIds = conn.execute(text(f'select distinct testId from answer')).all()
-    #     return render_template("viewResponse.html", answers=answers, testIds=testIds, questions=questions)
     testIds = conn.execute(text(f'select distinct testId from answer')).all()
+    if request.method == 'POST':
+        user_choice = request.form["testId"]
+        print(user_choice)
+        answers =  conn.execute(text(f'select * from answer where testId ="{user_choice}"')).all()
+        questions = conn.execute(text(f'select * from test where testId = "{user_choice}"')).one()
+        return render_template("viewResponse.html", answers=answers, testIds=testIds, questions=questions)
     return render_template("viewResponse.html", testIds=testIds)
 
 @app.route('/gradeTest', methods=['GET', 'POST'])
